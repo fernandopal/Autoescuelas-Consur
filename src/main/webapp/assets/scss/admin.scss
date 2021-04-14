@@ -1,0 +1,355 @@
+@import "animations";
+@import "general";
+
+/* Page Config */
+$sidebar-size: 260px;
+/* Page Config END */
+
+
+.page-wrapper {
+  height: 100vh;
+
+  .page-content {
+    display: inline-block;
+    width: 100%; height: 100%;
+    padding-left: 25px;
+    padding-top: 20px;
+    overflow-x: hidden;
+
+    background: $darken-2;
+
+    > div { padding: 20px 40px; }
+
+  }
+
+}
+
+.sidebar-wrapper {
+  width: $sidebar-size;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  z-index: 999;
+
+  .sidebar-brand {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+
+    > span {
+      text-transform: uppercase;
+      font-weight: bold;
+      flex-grow: 1;
+
+    }
+
+    #close-sidebar {
+      cursor: pointer;
+      font-size: 20px;
+
+    }
+
+  }
+
+  .sidebar-menu {
+    li.enable-hover.active {
+      background: $darken;
+      > a { color: $red; }
+
+    }
+
+    ul {
+      padding-bottom: 10px;
+
+      li a {
+        display: inline-block;
+        width: 100%;
+        text-decoration: none;
+        position: relative;
+        padding: 8px 30px 8px 20px;
+
+        i {
+          margin-right: 10px;
+          font-size: 12px;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          text-align: center;
+          border-radius: 4px;
+
+        }
+
+        &:hover > i::before {
+          display: inline-block;
+          animation: swing ease-in-out 0.5s 1 alternate;
+
+        }
+
+        span.label {
+          float: right;
+          margin-top: 8px;
+          margin-left: 5px;
+
+        }
+
+      }
+
+    }
+
+    .header-menu span {
+      font-weight: bold;
+      font-size: 14px;
+      padding: 15px 20px 5px 20px;
+      display: inline-block;
+
+    }
+
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+  }
+
+  a { text-decoration: none; }
+
+  .sidebar-header {
+    padding: 20px;
+    overflow: hidden;
+
+  }
+
+}
+
+#show-sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  border-radius: 0 0 4px 0;
+  padding: 1rem;
+
+  &:hover { color: $red; }
+
+}
+
+.page-wrapper.toggled {
+  .sidebar-wrapper { left: 0; }
+  #show-sidebar { left: -40px; }
+
+}
+
+.sidebar-content {
+  max-height: calc(100% - 30px);
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  position: relative;
+
+}
+
+.sidebar-content.desktop { overflow-y: hidden; }
+
+.sidebar-wrapper {
+  background: $dark;
+
+  .sidebar-header { border-top: 1px solid $light; }
+
+  .sidebar-menu {
+    border-top: 1px solid $light;
+
+    ul li.enable-hover {
+      a {
+        color: $light;
+        i { background: $darken; }
+
+      }
+
+      &:hover {
+        background: $darken;
+        > a { color: $red; }
+      }
+
+    }
+
+    .header-menu span { color: $secondary; }
+
+  }
+
+  .sidebar-brand > span {
+      color: #818896;
+      &:hover { color: #b8bfce; }
+
+  }
+
+}
+
+.page-wrapper.toggled {
+  #close-sidebar {
+    color: $white;
+    &:hover { color: $red; }
+
+  }
+
+}
+
+.toolbar {
+  background: $dark;
+  color: $light;
+  padding: .5rem 1rem;
+  margin-bottom: .5rem;
+
+  a.btn, button.btn {
+    background: $gray-700;
+    color: $white;
+
+    &:hover {
+      background: $red;
+      color: $dark;
+
+    }
+
+  }
+
+  div.collapse {
+    margin: 1rem 0;
+
+    > * {
+      background: transparent;
+      margin: 0;
+      padding: 0;
+
+    }
+
+  }
+
+}
+
+#preguntas-test {
+  background: $dark;
+  color: $light;
+  background: $darken;
+  padding: 1rem;
+  margin-bottom: .5rem;
+
+  a.btn, button.btn {
+    background: $gray-700;
+    color: $white;
+
+    &:hover {
+      background: $red;
+      color: $dark;
+
+    }
+
+  }
+
+  ol, li {
+    margin: 1rem 0;
+    border: 1px $red solid;
+
+    > * {
+      background: transparent;
+      margin: 0; padding: 0;
+
+    }
+
+  }
+
+}
+
+.darken {
+  background: $darken;
+
+}
+
+.breadcrumb {
+  background: $dark;
+  padding: 1rem;
+
+  .breadcrumb-item {
+
+    > a {
+      color: $red;
+    }
+
+    &:hover > a {
+      color: $light;
+
+    }
+
+  }
+
+  .active {
+    color: $light;
+
+  }
+
+}
+
+form.fullpage-form {
+  background: $dark;
+  color: $light;
+  padding: 1rem;
+
+  input, input:active, input:hover, input:checked, input:focus, select {
+    background: $gray-800;
+    color: $light;
+
+  }
+
+}
+
+#dashboard {
+  .card {
+    background: $darken-2;
+    color: $light;
+
+    .card-title {
+      color: $white;
+      font-weight: bold;
+
+    }
+
+  }
+
+}
+
+p.graph {
+  width: 100%;
+  background: $darken-2;
+  margin: .5rem 0;
+  padding: .25rem;
+  text-align: center;
+  color: $light;
+
+}
+
+canvas.graph {
+  background: $darken-2;
+  margin: .5rem 0;
+  padding: 0 0 .75rem 0;
+
+}
+
+@media screen and (min-width: 768px) {
+  .page-wrapper.toggled {
+    .page-content { padding-left: $sidebar-size; }
+
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .page-wrapper {
+    .page-content {
+      padding: 4rem 0 0 0;
+
+      > div { padding: 0 .5rem; }
+
+    }
+
+  }
+
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoGeneratorSettingsState">
+    <option name="generateRepository" value="false" />
+    <option name="ignoredFields">
+      <set>
+        <option value="" />
+      </set>
+    </option>
+    <option name="moduleName" value="Autoescuela" />
+    <option name="moduleNameToSettings">
+      <map>
+        <entry key="Autoescuela">
+          <value>
+            <ModuleSettings>
+              <option name="entityPackageName" value="es.fernandopal.autoescuela.entities" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+              <option name="repositoryPackageName" value="es.fernandopal.autoescuela.controller" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
+        <entry key="ProyectoFinal">
+          <value>
+            <ModuleSettings>
+              <option name="entityPackageName" value="es.fernandopal.pfinal.entities" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+              <option name="repositoryPackageName" value="es.fernandopal.pfinal.entities" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/src/main/java" />
+            </ModuleSettings>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="useFluidProgrammingStyle" value="true" />
+    <option name="useJava8DateType" value="true" />
+  </component>
+  <component name="DatabaseSettingsState">
+    <option name="database" value="Autoescuela" />
+    <option name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+    <option name="driverPath" value="C:\Users\fpalm\.m2\repository\mysql\mysql-connector-java\8.0.23\mysql-connector-java-8.0.23.jar" />
+    <option name="host" value="intranet.fernandopal.es" />
+    <option name="language" value="en-GB" />
+    <option name="url" value="jdbc:mysql://intranet.fernandopal.es:3306/Autoescuela" />
+  </component>
+</project>

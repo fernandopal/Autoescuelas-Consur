@@ -1,0 +1,41 @@
+@import "colors";
+@import "mixins";
+
+* {
+  font-family: 'Titillium Web', sans-serif;
+
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+
+}
+
+::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: #525965;
+  border: 0 none #ffffff;
+  border-radius: 0;
+
+  &:hover { background: #525965; }
+  &:active { background: #525965; }
+
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0 none #ffffff;
+  border-radius: 50px;
+
+  &:hover { background: transparent; }
+  &:active { background: transparent; }
+
+}
+
+::-webkit-scrollbar-corner { background: transparent; }

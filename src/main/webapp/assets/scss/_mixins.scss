@@ -1,0 +1,5 @@
+@mixin ease($duration) {
+  -webkit-transition: all $duration ease !important;
+  -o-transition: all $duration ease !important;
+  transition: all $duration ease !important;
+}
