@@ -224,17 +224,67 @@
     <!--END /app/a/fragments/coches-->
 <!--  END COCHES  -->
 
+
+
 <!--  OFERTAS  -->
     <!--/app/a/fragments/ofertas-->
     <servlet>
         <servlet-name>AdminOfertasFragment</servlet-name>
-        <jsp-file>/pages/admin/views/ofertas.jsp</jsp-file>
+        <jsp-file>/pages/admin/views/ofertas/listOfertas.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminOfertasFragment</servlet-name>
         <url-pattern>/app/a/fragments/ofertas</url-pattern>
     </servlet-mapping>
     <!--END /app/a/fragments/ofertas-->
+
+    <!--/app/a/delete/oferta-->
+    <servlet>
+        <servlet-name>AdminOfertaDeleteBack</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.admin.oferta.DeleteOferta</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOfertaDeleteBack</servlet-name>
+        <url-pattern>/app/a/delete/oferta</url-pattern>
+    </servlet-mapping>
+    <!--END /app/a/delete/oferta-->
+
+    <!--/admin/add/oferta-->
+    <servlet>
+        <servlet-name>AdminOfertaAddFront</servlet-name>
+        <jsp-file>/pages/admin/views/ofertas/addOferta.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOfertaAddFront</servlet-name>
+        <url-pattern>/admin/add/oferta</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/add/oferta-->
+
+    <!--/app/a/add/oferta-->
+    <servlet>
+        <servlet-name>AdminOfertaAddBack</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.admin.oferta.AddOferta</servlet-class>
+        <init-param>
+            <param-name>tamBuffer</param-name>
+            <param-value>1048576</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOfertaAddBack</servlet-name>
+        <url-pattern>/app/a/add/oferta</url-pattern>
+    </servlet-mapping>
+    <!--END /app/a/add/oferta-->
+
+    <!--/app/a/edit/oferta-->
+    <servlet>
+        <servlet-name>AdminOfertaEditBack</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.admin.oferta.EditOferta</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminOfertaEditBack</servlet-name>
+        <url-pattern>/app/a/edit/oferta</url-pattern>
+    </servlet-mapping>
+    <!--END /app/a/edit/oferta-->
 <!--  END OFERTAS  -->
 
 
@@ -324,6 +374,17 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <!--END /admin-->
+
+    <!--/media-->
+    <servlet>
+        <servlet-name>GetMedia</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.GetMedia</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetMedia</servlet-name>
+        <url-pattern>/media/*</url-pattern>
+    </servlet-mapping>
+    <!--END /media-->
 <!--  END OTROS  -->
 
     <session-config>

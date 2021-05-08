@@ -34,7 +34,7 @@
                             <c:forEach items="${lAll}" var="off">
                                 <div class="off">
                                     <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${off.img}" alt=""></a>
-                                    <span>${off.nombre} - ${off.precio}€</span>
+                                    <span>${off.nombre} - ${off.precio}&euro;</span>
                                 </div>
                             </c:forEach>
                         </div>
@@ -43,7 +43,7 @@
                             <c:forEach items="${cn.ofertas.findByType('coche')}" var="off">
                                 <div class="off">
                                     <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${off.img}" alt=""></a>
-                                    <span>${off.nombre} - ${off.precio}€</span>
+                                    <span>${off.nombre} - ${off.precio}&euro;</span>
                                 </div>
                             </c:forEach>
                         </div>
@@ -52,16 +52,16 @@
                             <c:forEach items="${cn.ofertas.findByType('moto')}" var="off">
                                 <div class="off">
                                     <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${off.img}" alt=""></a>
-                                    <span>${off.nombre} - ${off.precio}€</span>
+                                    <span>${off.nombre} - ${off.precio}&euro;</span>
                                 </div>
                             </c:forEach>
                         </div>
 
                         <div class="tab-pane fade" id="otros" role="tabpanel" aria-labelledby="otros-tab">
-                            <c:forEach items="${cn.ofertas.findByType('otros')}" var="off">
+                            <c:forEach items="${cn.ofertas.findByType('otro')}" var="off">
                                 <div class="off">
                                     <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${off.img}" alt=""></a>
-                                    <span>${off.nombre} - ${off.precio}€</span>
+                                    <span>${off.nombre} - ${off.precio}&euro;</span>
                                 </div>
                             </c:forEach>
                         </div>

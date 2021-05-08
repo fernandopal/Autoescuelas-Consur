@@ -293,9 +293,9 @@ form.fullpage-form {
   color: $light;
   padding: 1rem;
 
-  input, input:active, input:hover, input:checked, input:focus, select {
-    background: $gray-800;
-    color: $light;
+  input, input:active, input:hover, input:checked, input:focus, select, textarea, textarea:hover, textarea:focus {
+    background-color: $gray-800 !important;
+    color: $light !important;
 
   }
 

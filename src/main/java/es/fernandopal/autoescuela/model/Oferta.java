@@ -15,7 +15,7 @@ public class Oferta implements Serializable {
     private String tipo;
     private String descripcion;
     private String img;
-    private int precio;
+    private double precio;
 
     public int getId() {
         return id;
@@ -45,10 +45,10 @@ public class Oferta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 

@@ -20,7 +20,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="EclipseLink" />
         <datasource-mapping>
-          <factory-entry name="Autoescuela" value="62bf4456-773b-4a13-abbc-8effe9930bb1" />
+          <factory-entry name="Autoescuela" value="44c424fa-3557-4657-8482-e66eaf33a2a2" />
           <factory-entry name="ProyectoFinalPU" value="62bf4456-773b-4a13-abbc-8effe9930bb1" />
         </datasource-mapping>
         <naming-strategy-map />
@@ -38,16 +38,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="JDK15" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="font-awesome" level="application" />
-    <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="typed.js" level="application" />
-    <orderEntry type="library" name="jquery-jcrop" level="application" />
-    <orderEntry type="library" name="jquery-migrate" level="application" />
-    <orderEntry type="library" name="chart.js" level="application" />
     <orderEntry type="library" name="Chart.js" level="application" />
+    <orderEntry type="library" name="typed.js" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax:javaee-api:8.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.activation:activation:1.1" level="project" />
@@ -73,6 +70,5 @@
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
-    <orderEntry type="library" name="foundation" level="application" />
   </component>
 </module>

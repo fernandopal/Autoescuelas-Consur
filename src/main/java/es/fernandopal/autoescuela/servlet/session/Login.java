@@ -20,8 +20,9 @@ import javax.servlet.http.HttpSession;
 public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String username = request.getParameter("username");
-        final String password = request.getParameter("password");
+        final String
+            username = request.getParameter("username"),
+            password = request.getParameter("password");
         String alert;
 
         if (username == null || password == null) {

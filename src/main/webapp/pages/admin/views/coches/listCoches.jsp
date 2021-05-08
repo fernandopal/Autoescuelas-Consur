@@ -2,6 +2,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="cn" class="es.fernandopal.autoescuela.controller.Controller"/>
 
+<div class="toolbar rounded">
+    <a class="btn btn-sm" href="${pageContext.request.contextPath}/admin/add/coche">
+        <i class="fas fa-plus"></i> Añadir coche
+    </a>
+</div>
+
 <div class="table-responsive bg-dark rounded">
     <table class="table table-striped table-sm table-dark">
         <thead>

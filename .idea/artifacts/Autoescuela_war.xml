@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="ProyectoFinal:war">
+  <artifact type="war" name="Autoescuela:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>ProyectoFinal</module>
+        <module>Autoescuela</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="archive" name="Autoescuela-1.0A.war">
-      <element id="artifact" artifact-name="ProyectoFinal:war exploded" />
+      <element id="artifact" artifact-name="Autoescuela:war exploded" />
     </root>
   </artifact>
 </component>

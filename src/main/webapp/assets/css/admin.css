@@ -236,8 +236,8 @@ form.fullpage-form {
   background: #212529;
   color: #ced4da;
   padding: 1rem; }
-  form.fullpage-form input, form.fullpage-form input:active, form.fullpage-form input:hover, form.fullpage-form input:checked, form.fullpage-form input:focus, form.fullpage-form select {
-    background: #343a40;
+  form.fullpage-form input, form.fullpage-form input:active, form.fullpage-form input:hover, form.fullpage-form input:checked, form.fullpage-form input:focus, form.fullpage-form select, form.fullpage-form textarea, form.fullpage-form textarea:hover, form.fullpage-form textarea:focus {
+    background-color: #343a40;
     color: #ced4da; }
 
 #dashboard .card {

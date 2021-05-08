@@ -126,7 +126,7 @@ public class OfertaJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         List<Oferta> result;
         try {
-            Query q = em.createQuery("select object(o) from Oferta as o");
+            Query q = em.createQuery("select object(o) from Oferta o WHERE o.descripcion != 'TIPO'");
             if (!all) {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
@@ -149,7 +149,7 @@ public class OfertaJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         int result;
         try {
-            final Query q = em.createQuery("select count(o) from Oferta as o");
+            final Query q = em.createQuery("select count(o) from Oferta o WHERE o.descripcion != 'TIPO'");
             result = ((Long) q.getSingleResult()).intValue();
         } finally { if (em != null) em.close(); }
         return result;
@@ -159,7 +159,7 @@ public class OfertaJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         List<String> result;
         try {
-            result = em.createQuery("SELECT DISTINCT(o.tipo) FROM Oferta AS o").getResultList();
+            result = em.createQuery("SELECT DISTINCT(o.tipo) FROM Oferta o WHERE o.descripcion = 'TIPO'").getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }
@@ -168,7 +168,7 @@ public class OfertaJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         int result;
         try {
-            final Query query = em.createQuery("SELECT COUNT(o) FROM Oferta o WHERE o.tipo = :tipo");
+            final Query query = em.createQuery("SELECT COUNT(o) FROM Oferta o WHERE o.tipo = :tipo AND o.descripcion != 'TIPO'");
             final Query query1 = query.setParameter("tipo", tipo);
             result = ((Long) query1.getSingleResult()).intValue();
         } finally { if (em != null) em.close(); }

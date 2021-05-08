@@ -16,7 +16,6 @@ public class AddUsuario extends HttpServlet {
 
         try {
             final Usuario usuario = new Usuario();
-
             final String dni = request.getParameter("dni");
             final String nombre = request.getParameter("nombre");
             final String apellidos = request.getParameter("apellidos");
