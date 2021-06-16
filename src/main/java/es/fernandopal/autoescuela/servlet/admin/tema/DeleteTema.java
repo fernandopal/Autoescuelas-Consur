@@ -3,6 +3,8 @@ package es.fernandopal.autoescuela.servlet.admin.tema;
 import es.fernandopal.autoescuela.controller.Controller;
 import es.fernandopal.autoescuela.model.Test;
 import es.fernandopal.autoescuela.model.Usuario;
+import es.fernandopal.autoescuela.util.Label;
+import es.fernandopal.autoescuela.util.Util;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class DeleteTema extends HttpServlet {
+    private final Label labels = new Label();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String alert;
 
@@ -18,15 +22,15 @@ public class DeleteTema extends HttpServlet {
             final Usuario admin = (Usuario) request.getSession().getAttribute("usuario");
 
             if(admin == null) {
-                alert = "Necesitas iniciar sesión como administrador para poder hacer esto";
-                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/home?alert=" + alert + "&error"));
+                alert = labels.get("YOU_NEED_ADMIN_PERMISSION", request);
+                Util.sendMessage(null, "/admin", alert, request, response);
                 return;
 
             } else {
                 final String tema = request.getParameter("tema");
 
                 if(tema == null) {
-                    alert = "El tema indicado no es válido";
+                    alert = labels.get("INVALID_THEME", request);
 
                 } else {
                     final Controller cn = new Controller();
@@ -34,7 +38,7 @@ public class DeleteTema extends HttpServlet {
 
                     final List<Test> temas = cn.getTests().findByTema(temaAsInt);
                     for (Test t : temas) {
-                        if(t.getNombre().equals("TEMA") && t.getTema() == temaAsInt) {
+                        if(t.getNombre().equals("THEME") && t.getTema() == temaAsInt) {
                             cn.getTests().destroy(t.getId());
                             break;
 
@@ -42,9 +46,8 @@ public class DeleteTema extends HttpServlet {
 
                     }
 
-                    alert = "Tema eliminado con éxito";
-
-                    response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                    alert = labels.get("DELETED_TEMA", request);
+                    Util.sendMessage("CUSTOM", "/admin", alert, request, response);
                     return;
 
                 }
@@ -52,11 +55,11 @@ public class DeleteTema extends HttpServlet {
             }
 
         } catch (Exception ex) {
-            alert = "No se ha podido eliminar el tema. Error: " + ex.getMessage();
+            alert = labels.get("CANT_DELETE_THEME", request);
 
         }
 
-        response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error"));
+        Util.sendMessage("CUSTOM", "/admin", alert, request, response);
 
     }
 

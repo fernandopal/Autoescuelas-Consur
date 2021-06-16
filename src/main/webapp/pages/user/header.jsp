@@ -1,13 +1,14 @@
-<%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.util.Date"%>
-<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 
-        <title>Autoescuelas consur</title>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>${labels.get('BRAND_NAME', pageContext.request)}</title>
 
         <meta name="description" content="Autoescuelas consur">
         <meta name="viewport" content="width=device-width">
@@ -35,13 +36,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link ${(empty param.view || param.view == 'home') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/home">Inicio</a>
+                            <a class="nav-link ${(empty param.view || param.view == 'home') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/home">${labels.get('HOME', pageContext.request)}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${(param.view == 'contacto') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/contacto">Contactanos</a>
+                            <a class="nav-link ${(param.view == 'contacto') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/contacto">${labels.get('CONTACT', pageContext.request)}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link ${(param.view == 'ofertas') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/ofertas">Ofertas</a>
+                            <a class="nav-link ${(param.view == 'ofertas') ? 'text-nav-link' : ''}" aria-current="page" href="${pageContext.request.contextPath}/ofertas">${labels.get('OFFERS', pageContext.request)}</a>
                         </li>
                     </ul>
 
@@ -51,35 +52,58 @@
                                 <c:when test="${sessionScope.usuario != null && sessionScope.usuario.nombre != null}">
                                     <a class="dropdown-toggle text-danger fw-bold text-nav-link text-decoration-none" href="#" role="button" data-bs-toggle="dropdown">${sessionScope.usuario.nombre} ${sessionScope.usuario.apellidos} <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item disabled text-muted text-center" href="#">Última conexión: <%=new SimpleDateFormat("dd/MM/yyyy").format(new Date(session.getCreationTime()))%></a></li>
+                                        <li><a class="dropdown-item disabled text-muted text-center" href="#">${labels.get('LAST_LOGIN', pageContext.request)} <%=new SimpleDateFormat("dd/MM/yyyy").format(new Date(session.getCreationTime()))%></a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/tests">Acceso a tests</a></li>
-                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/stats">Estadísticas</a></li>
-                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/admin">Panel de admin</a></li>
+                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/tests">${labels.get('ACCESS_TESTS', pageContext.request)}</a></li>
+                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/stats">${labels.get('STATS', pageContext.request)}</a></li>
+                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/admin">${labels.get('ADMIN_PANEL', pageContext.request)}</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/logout">Cerrar Sesión</a></li>
+                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/logout">${labels.get('LOG_OUT', pageContext.request)}</a></li>
                                     </ul>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="" class="dropdown-toggle text-danger fw-bold text-nav-link text-decoration-none" role="button" data-bs-toggle="dropdown">INICIAR SESIÓN</a>
+                                    <a href="" class="dropdown-toggle text-danger fw-bold text-nav-link text-decoration-none" role="button" data-bs-toggle="dropdown">${labels.get('LOG_IN', pageContext.request)}</a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li>
                                             <form class="form" role="form" method="post" action="${pageContext.request.contextPath}/login" accept-charset="UTF-8" id="login-nav">
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="username">Usuario</label>
-                                                    <input type="text" class="form-control" id="username" name="username" placeholder="00000000A" pattern="^[0-9]{8,8}[A-Za-z]$" required>
+                                                    <label class="sr-only" for="username">${labels.get('USER', pageContext.request)}</label>
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="${labels.get('DNI_PLACEHOLDER', pageContext.request)}" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="sr-only" for="password">Contraseña</label>
-                                                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
-                                                    <a class="text-decoration-none text-danger text-nav-link" href="">He olvidado mi contraseña</a>
+                                                    <label class="sr-only" for="password">${labels.get('PASSWORD', pageContext.request)}</label>
+                                                    <input type="password" class="form-control" id="password" name="password" placeholder="${labels.get('PASSWORD', pageContext.request)}" required>
+                                                    <a class="text-decoration-none text-danger text-nav-link" href="">${labels.get('LOST_PASSWORD', pageContext.request)}</a>
                                                 </div>
                                                 <div class="form-group mt-3">
-                                                    <button type="submit" class="btn btn-danger btn-block btn-sm">Iniciar sesión</button>
+                                                    <button type="submit" id="submit" class="btn btn-danger btn-block btn-sm" disabled>${labels.get('LOG_IN', pageContext.request)}</button>
                                                 </div>
                                             </form>
                                         </li>
                                     </ul>
+                                    <script>
+                                        $().ready(function () {
+                                            let input = document.getElementById('username');
+                                            let submit = document.getElementById('submit');
+
+                                            input.addEventListener('input', function() {
+                                                let dni = input.value;
+                                                let checkFormato = (/^\d{8}[a-zA-Z]$/.test(dni));
+                                                let valido = false;
+
+                                                if(checkFormato) {
+                                                    let letraDni = dni.substring(8, 9).toUpperCase();
+                                                    let numerosDni = parseInt(dni.substring(0, 8));
+
+                                                    let letras = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E', 'T'];
+                                                    let checkLetra = (letras[numerosDni % 23] === letraDni);
+
+                                                    valido = checkLetra;
+                                                }
+                                                submit.disabled = !valido;
+                                            }, false);
+                                        });
+                                    </script>
                                 </c:otherwise>
                             </c:choose>
                         </li>

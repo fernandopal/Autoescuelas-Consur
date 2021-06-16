@@ -1,17 +1,18 @@
-<%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="cn" class="es.fernandopal.autoescuela.controller.Controller"/>
+<jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
 
 <div id="dashboard">
     <div class="row g-2">
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Usuarios</h5>
+                    <h5 class="card-title">${labels.get('USERS', pageContext.request)}</h5>
                     <p class="card-text">
-                        <b><i class="fas fa-user-graduate fa-fw"></i> Alumnos:</b> ${cn.usuarios.getByRango("ALUMNO").size()} <br>
-                        <b><i class="fas fa-chalkboard-teacher fa-fw"></i> Profesores:</b> ${cn.usuarios.getByRango("PROFESOR").size()} <br>
-                        <b><i class="fas fa-user-shield fa-fw"></i> Administradores:</b> ${cn.usuarios.getByRango("ADMIN").size()} <br>
+                        <b><i class="fas fa-user-graduate fa-fw"></i> ${labels.get('STUDENTS', pageContext.request)}:</b> ${cn.usuarios.getByRango("ALUMNO").size()} <br>
+                        <b><i class="fas fa-chalkboard-teacher fa-fw"></i> ${labels.get('TEACHERS', pageContext.request)}:</b> ${cn.usuarios.getByRango("PROFESOR").size()} <br>
+                        <b><i class="fas fa-user-shield fa-fw"></i> ${labels.get('ADMINISTRATORS', pageContext.request)}:</b> ${cn.usuarios.getByRango("ADMIN").size()} <br>
                     </p>
                 </div>
             </div>
@@ -19,11 +20,11 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Tests</h5>
+                    <h5 class="card-title">${labels.get('TESTS', pageContext.request)}</h5>
                     <p class="card-text">
-                        <b><i class="far fa-file-alt fa-fw"></i> Temas:</b> ${cn.tests.allTemas.size()} <br>
-                        <b><i class="fas fa-question fa-fw"></i> Preguntas:</b> ${cn.preguntas.count} <br>
-                        <b><i class="fas fa-book fa-fw"></i> Tests:</b> ${cn.tests.count} <br>
+                        <b><i class="far fa-file-alt fa-fw"></i> ${labels.get('THEMES', pageContext.request)}:</b> ${cn.tests.allTemas.size()} <br>
+                        <b><i class="fas fa-question fa-fw"></i> ${labels.get('QUESTIONS', pageContext.request)}:</b> ${cn.preguntas.count} <br>
+                        <b><i class="fas fa-book fa-fw"></i> ${labels.get('TESTS', pageContext.request)}:</b> ${cn.tests.count} <br>
                     </p>
                 </div>
             </div>
@@ -31,11 +32,11 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Coches</h5>
+                    <h5 class="card-title">${labels.get('CARS', pageContext.request)}</h5>
                     <p class="card-text">
-                        <b><i class="fas fa-coins"></i> Alquilados:</b> 0 <br>
-                        <b><i class="fas fa-lock"></i> En propiedad:</b> 0 <br>
-                        <b><i class="fas fa-wrench"></i> Averiados:</b> 0 <br>
+                        <b><i class="fas fa-coins"></i> ${labels.get('AVAILABLE', pageContext.request)}:</b> ${cn.coches.getCochesByEstado("DISPONIBLE").size()} <br>
+                        <b><i class="fas fa-lock"></i> ${labels.get('IN_USE', pageContext.request)}:</b> ${cn.coches.getCochesByEstado("EN_USO").size()} <br>
+                        <b><i class="fas fa-wrench"></i> ${labels.get('IN_WORKSHOP', pageContext.request)}:</b> ${cn.coches.getCochesByEstado("EN_TALLER").size()} <br>
                     </p>
                 </div>
             </div>
@@ -46,19 +47,19 @@
             <c:choose>
                 <c:when test="${cn.ofertas.count <= 0}">
                     <p class="graph rounded">
-                        Actualmente no hay ninguna oferta por lo que este gráfico no está disponible
+                        ${labels.get('GRAPH_NO_OFFERS', pageContext.request)}
                     </p>
                 </c:when>
                 <c:otherwise>
                     <canvas id="testsPerCategory" class="graph rounded"></canvas>
                     <script>
-                        let ctx = document.getElementById('testsPerCategory').getContext('2d');
-                        let myChart = new Chart(ctx, {
+                        let ctx1 = document.getElementById('testsPerCategory').getContext('2d');
+                        new Chart(ctx1, {
                             type: 'pie',
                             data: {
-                                labels: ['Coche', 'Moto', 'Otros'],
+                                labels: ['${labels.get('CAR', pageContext.request)}', '${labels.get('MOTORCYCLE', pageContext.request)}', '${labels.get('OTHERS', pageContext.request)}'],
                                 datasets: [{
-                                    label: '# ofertas/categoría',
+                                    label: '# ${labels.get('OFFERS_GRAPH_LABEL', pageContext.request)}',
                                     data: [
                                         ${cn.ofertas.getCountOf('coche')},
                                         ${cn.ofertas.getCountOf('moto')},
@@ -92,28 +93,20 @@
             <c:choose>
                 <c:when test="${cn.preguntas.count <= 0}">
                     <p class="graph rounded">
-                        Actualmente no hay ninguna pregunta por lo que este gráfico no está disponible
+                        ${labels.get('GRAPH_NO_QUESTIONS', pageContext.request)}
                     </p>
                 </c:when>
                 <c:otherwise>
                     <canvas id="questionsPerCategory" class="graph rounded"></canvas>
                     <script>
-                        let ctx = document.getElementById('questionsPerCategory').getContext('2d');
-                        let myChart = new Chart(ctx, {
+                        let ctx2 = document.getElementById('questionsPerCategory').getContext('2d');
+                        new Chart(ctx2, {
                             type: 'pie',
                             data: {
-                                labels: [
-                                    <c:forEach var="categoria" items="${cn.preguntas.allCategories}">
-                                        '${categoria}',
-                                    </c:forEach>
-                                ],
+                                labels: [<c:forEach var="categoria" items="${cn.preguntas.allCategories}" varStatus="status">'${categoria}'<c:if test="${!status.last}">,</c:if></c:forEach>],
                                 datasets: [{
-                                    label: '# ofertas/categoría',
-                                    data: [
-                                        <c:forEach var="categoria" items="${cn.preguntas.allCategories}">
-                                            ${cn.preguntas.getCountOf(categoria)},
-                                        </c:forEach>
-                                    ],
+                                    label: '# ${labels.get('QUESTIONS_GRAPH_LABEL', pageContext.request)}',
+                                    data: [<c:forEach var="categoria" items="${cn.preguntas.allCategories}">${cn.preguntas.getCountOf(categoria)},</c:forEach>],
                                     borderColor: "rgb(206,212,218)",
                                     backgroundColor: [
                                         '#25CCF7','#FD7272','#54a0ff','#00d2d3',

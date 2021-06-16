@@ -5,9 +5,10 @@
   Time: 14:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="cn" class="es.fernandopal.autoescuela.controller.Controller"/>
+<jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
 
 <html>
     <head>
@@ -18,7 +19,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Admin - Consur Autoescuelas</title>
+        <title>${labels.get('ADMIN', pageContext.request)} - ${labels.get('BRAND_NAME', pageContext.request)}</title>
 
         <!-- Custom fonts for this template-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -32,43 +33,43 @@
     <body class="container py-5 darken">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb rounded">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin?view=ofertas">Ofertas</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Añadir nueva</li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">${labels.get('ADMIN', pageContext.request)}</a></li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin?view=ofertas">${labels.get('OFFERS', pageContext.request)}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">${labels.get('ADD_NEW', pageContext.request)}</li>
             </ol>
         </nav>
 
         <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/a/add/oferta" method="post" enctype="multipart/form-data">
             <div class="mb-3 row g-3">
                 <div class="col-lg-11 col-sm-12">
-                    <label for="nombre" class="form-label">Nombre</label>
+                    <label for="nombre" class="form-label">${labels.get('NAME', pageContext.request)}</label>
                     <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
                 <div class="col-lg-1 col-sm-12">
-                    <label for="precio" class="form-label">Precio</label>
+                    <label for="precio" class="form-label">${labels.get('PRICE', pageContext.request)}</label>
                     <input type="number" class="form-control" id="precio" name="precio">
                 </div>
             </div>
+<%--            <div class="mb-3">--%>
+<%--                <label for="img" class="form-label">${labels.get('IMAGE', pageContext.request)}</label>--%>
+<%--                <input type="file" class="form-control" id="img" name="img">--%>
+<%--            </div>--%>
             <div class="mb-3">
-                <label for="img" class="form-label">Imagen</label>
-                <input type="file" class="form-control" id="img" name="img">
-            </div>
-            <div class="mb-3">
-                <label for="tipo" class="form-label">Tipo</label>
-                <select class="form-select" aria-label="Tipo de oferta" id="tipo" name="tipo">
+                <label for="tipo" class="form-label">${labels.get('TYPE', pageContext.request)}</label>
+                <select class="form-select" aria-label="${labels.get('OFFER_TYPE', pageContext.request)}" id="tipo" name="tipo">
                     <c:forEach var="tipo" items="${cn.ofertas.allTypes}">
                         <option>${tipo}</option>
                     </c:forEach>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="desc" class="form-label">Descripción</label>
+                <label for="desc" class="form-label">${labels.get('DESCRIPTION', pageContext.request)}</label>
                 <textarea class="form-control" id="desc" name="desc" rows="3" maxlength="200" aria-describedby="descHelp"></textarea>
                 <div id="descHelp" class="form-text">
-                    Quedan <span id="charLimit"></span> de un máximo de <span id="showMax"></span> carácteres disponibles
+                    ${labels.get('DESC_CHARS_LEFT_TEXT', pageContext.request).replace('{used_chars}', '<span id="charLimit"></span>').replace('{max_chars}', '<span id="showMax"></span>')}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">${labels.get('SAVE', pageContext.request)}</button>
         </form>
 
         <!-- Bootstrap core JavaScript-->

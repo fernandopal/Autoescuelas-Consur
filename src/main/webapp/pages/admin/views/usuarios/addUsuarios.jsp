@@ -5,10 +5,11 @@
   Time: 18:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ page import="es.fernandopal.autoescuela.entities.Rango" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="cn" class="es.fernandopal.autoescuela.controller.Controller"/>
+<jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
 
 <html>
     <head>
@@ -19,7 +20,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Admin - Consur Autoescuelas</title>
+        <title>${labels.get('ADMIN', pageContext.request)} - ${labels.get('BRAND_NAME', pageContext.request)}</title>
 
         <!-- Custom fonts for this template-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -33,41 +34,41 @@
     <body class="container py-5 darken">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb rounded">
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">Admin</a></li>
-                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin?view=usuarios">Usuarios</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Añadir nuevo</li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin">${labels.get('ADMIN', pageContext.request)}</a></li>
+                <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/admin?view=usuarios">${labels.get('USERS', pageContext.request)}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">${labels.get('ADD_NEW', pageContext.request)}</li>
             </ol>
         </nav>
 
         <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/a/add/usuario" method="post">
             <div class="mb-3">
-                <label for="dni" class="form-label">DNI</label>
+                <label for="dni" class="form-label">${labels.get('UPP_DNI', pageContext.request)}</label>
                 <input type="text" class="form-control" id="dni" name="dni" maxlength="9" pattern="^[0-9]{8,8}[A-Za-z]$">
             </div>
             <div class="mb-3 row g-3">
                 <div class="col">
-                    <label for="nombre" class="form-label">Nombre</label>
+                    <label for="nombre" class="form-label">${labels.get('NAME', pageContext.request)}</label>
                     <input type="text" class="form-control" id="nombre" name="nombre">
                 </div>
                 <div class="col">
-                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <label for="apellidos" class="form-label">${labels.get('SURNAME', pageContext.request)}</label>
                     <input type="text" class="form-control" id="apellidos" name="apellidos">
                 </div>
             </div>
             <div class="mb-3">
-                <label for="tlf" class="form-label">Número de teléfono</label>
+                <label for="tlf" class="form-label">${labels.get('PHONE_NUMBER', pageContext.request)}</label>
                 <input type="tel" class="form-control" id="tlf" name="tlf">
             </div>
             <div class="mb-3">
-                <label for="rango" class="form-label">Tema</label>
-                <select class="form-select" aria-label="Rango del usuario" id="rango" name="rango">
+                <label for="rango" class="form-label">${labels.get('THEME', pageContext.request)}</label>
+                <select class="form-select" aria-label="${labels.get('USER_RANK', pageContext.request)}" id="rango" name="rango">
                     <c:set var="rangos" value="<%=Rango.values()%>"/>
                     <c:forEach var="rango" items="${rangos}">
                         <option>${rango.name()}</option>
                     </c:forEach>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-primary">${labels.get('SAVE', pageContext.request)}</button>
         </form>
 
         <!-- Bootstrap core JavaScript-->

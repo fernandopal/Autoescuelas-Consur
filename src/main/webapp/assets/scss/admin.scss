@@ -288,6 +288,16 @@ $sidebar-size: 260px;
 
 }
 
+div.toolbar .list-filter-link {
+  color: $red;
+
+  &:hover {
+    color: $light !important;
+
+  }
+
+}
+
 form.fullpage-form {
   background: $dark;
   color: $light;

@@ -30,6 +30,65 @@
 
 
 
+<!-- PRINT VIEWS -->
+    <!--/admin/print/coches-->
+    <servlet>
+        <servlet-name>PrintCoches</servlet-name>
+        <jsp-file>/pages/admin/print/coches.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintCoches</servlet-name>
+        <url-pattern>/admin/print/coches</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/print/coches-->
+
+    <!--/admin/print/ofertas-->
+    <servlet>
+        <servlet-name>PrintOfertas</servlet-name>
+        <jsp-file>/pages/admin/print/ofertas.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintOfertas</servlet-name>
+        <url-pattern>/admin/print/ofertas</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/print/ofertas-->
+
+    <!--/admin/print/temas-->
+    <servlet>
+        <servlet-name>PrintTemas</servlet-name>
+        <jsp-file>/pages/admin/print/temas.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintTemas</servlet-name>
+        <url-pattern>/admin/print/temas</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/print/temas-->
+
+    <!--/admin/print/tests-->
+    <servlet>
+        <servlet-name>PrintTests</servlet-name>
+        <jsp-file>/pages/admin/print/tests.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintTests</servlet-name>
+        <url-pattern>/admin/print/tests</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/print/tests-->
+
+    <!--/admin/print/usuarios-->
+    <servlet>
+        <servlet-name>PrintUsuarios</servlet-name>
+        <jsp-file>/pages/admin/print/usuarios.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PrintUsuarios</servlet-name>
+        <url-pattern>/admin/print/usuarios</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/print/usuarios-->
+<!-- END PRINT VIEWS -->
+
+
+
 <!--  DASHBOARD  -->
     <!--/app/a/fragments/dashboard-->
     <servlet>
@@ -211,18 +270,18 @@
 
 
 
-<!--  COCHES  -->
+<!--  CARS  -->
     <!--/app/a/fragments/coches-->
     <servlet>
         <servlet-name>AdminCochesFragment</servlet-name>
-        <jsp-file>/pages/admin/views/coches.jsp</jsp-file>
+        <jsp-file>/pages/admin/views/coches/listCoches.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminCochesFragment</servlet-name>
         <url-pattern>/app/a/fragments/coches</url-pattern>
     </servlet-mapping>
     <!--END /app/a/fragments/coches-->
-<!--  END COCHES  -->
+<!--  END CARS  -->
 
 
 

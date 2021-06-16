@@ -1,9 +1,8 @@
 package es.fernandopal.autoescuela.servlet.admin.tema;
 
 import es.fernandopal.autoescuela.controller.Controller;
-import es.fernandopal.autoescuela.entities.Rango;
 import es.fernandopal.autoescuela.model.Test;
-import es.fernandopal.autoescuela.model.Usuario;
+import es.fernandopal.autoescuela.util.Label;
 import es.fernandopal.autoescuela.util.Util;
 
 import javax.servlet.http.HttpServlet;
@@ -12,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddTema extends HttpServlet {
+    private final Label labels = new Label();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String alert;
 
@@ -24,7 +25,7 @@ public class AddTema extends HttpServlet {
                 alert = "Alguno de los valores introducidos no era válido";
 
             } else {
-                //Creamos un test con valores nulos y nombre 'TEMA', estos test no se muestran en ningún lado pero se usan
+                //Creamos un test con valores nulos y nombre 'THEME', estos test no se muestran en ningún lado pero se usan
                 //para evitarnos crear una tabla adicional para guardar solo los temas disponibles
 
                 final int temaAsInt = Integer.parseInt(tema);
@@ -33,27 +34,25 @@ public class AddTema extends HttpServlet {
                 if(cn.getTests().findByTema(temaAsInt).isEmpty()) {
                     test.setTema(temaAsInt);
                     test.setPreguntas(null);
-                    test.setNombre("TEMA");
+                    test.setNombre("THEME");
 
                     cn.getTests().create(test, false);
-                    alert = "Tema añadido con éxito";
-
-                    response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                    alert = labels.get("ADDED_TEMA", request);
+                    Util.sendMessage(null, "/admin", alert, request, response);
                     return;
 
                 } else {
-                    alert = "Ese tema ya existe, no pueden existir duplicados";
+                    alert = labels.get("TEMA_ALREADY_EXISTS", request);
 
                 }
 
             }
 
         } catch (Exception ex) {
-            alert = "No se ha podido añadir el tema. Error: " + ex.getMessage();
+            alert = labels.get("CANT_ADD_THEME", request);
 
         }
-
-        response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error"));
+        Util.sendMessage("CUSTOM", "/admin", alert, request, response);
 
     }
 

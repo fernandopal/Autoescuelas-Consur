@@ -1,4 +1,5 @@
-        <%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
+        <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+        <jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
         <footer class="footer bg-dark text-center text-white">
             <!-- Grid container -->
             <div class="container p-4">
@@ -20,18 +21,18 @@
                 </section>
 
                 <section class="mb-4">
-                    <p>Autoescuelas consur, nuestros profesionales obtienen la mejor formación para ayudarte a conseguir tú carné lo antes posible</p>
+                    <p>${labels.get('FOOTER_SLOGAN', pageContext.request)}</p>
                 </section>
 
                 <section>
                     <div class="row" id="hideOnDesktop">
                         <div class="col">
                             <select id="selectAutoescuelaFooter" class="form-select mb-2" aria-label="Selecciona tu autoescuela mas cercana">
-                                <option selected value="sevilla">Sevilla</option>
-                                <option value="huelva">Huelva</option>
+                                <option selected value="sevilla">${labels.get('SEVILLA', pageContext.request)}</option>
+                                <option value="huelva">${labels.get('HUELVA', pageContext.request)}</option>
                             </select>
 
-                            <h5 class="text-uppercase" id="officeTitle">Oficina en Sevilla</h5>
+                            <h5 class="text-uppercase" id="officeTitle">${labels.get('OFFICE_IN', pageContext.request).replace('{city_name}', labels.get('SEVILLA', pageContext.request))}</h5>
                             <ul class="list-unstyled mb-0 contact-">
                                 <li>
                                     <a href="tel:955123123" class="text-white-50 text-decoration-none" id="officePhone">955 123 123</a>
@@ -50,14 +51,14 @@
                                 footerSelect.addEventListener("change", function () {
                                     let selectedValue = footerSelect.value;
                                     if(selectedValue === "sevilla") {
-                                        officeTitle.innerHTML = "Oficina en Sevilla";
+                                        officeTitle.innerHTML = "${labels.get('OFFICE_IN', pageContext.request).replace('{city_name}', labels.get('SEVILLA', pageContext.request))}";
                                         officePhone.innerHTML = "955 123 123";
                                         officePhone.setAttribute("href", "tel:955123123");
                                         officeMail.innerHTML = "sevilla@autoescuelasconsur.es";
                                         officeMail.setAttribute("href", "mailto:sevilla@autoescuelasconsur.es");
 
                                     } else {
-                                        officeTitle.innerHTML = "Oficina en Huelva";
+                                        officeTitle.innerHTML = "${labels.get('OFFICE_IN', pageContext.request).replace('{city_name}', labels.get('HUELVA', pageContext.request))}";
                                         officePhone.innerHTML = "965 321 321";
                                         officePhone.setAttribute("href", "tel:965321321");
                                         officeMail.innerHTML = "huelva@autoescuelasconsur.es";
@@ -71,7 +72,7 @@
 
                     <div class="row" id="hideOnMobile">
                         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                            <h5 class="text-uppercase">Oficina en Sevilla</h5>
+                            <h5 class="text-uppercase">${labels.get('OFFICE_IN', pageContext.request).replace('{city_name}', labels.get('SEVILLA', pageContext.request))}</h5>
 
                             <ul class="list-unstyled mb-0 contact-">
                                 <li>
@@ -84,7 +85,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                            <h5 class="text-uppercase">Oficina en Huelva</h5>
+                            <h5 class="text-uppercase">${labels.get('OFFICE_IN', pageContext.request).replace('{city_name}', labels.get('HUELVA', pageContext.request))}</h5>
 
                             <ul class="list-unstyled mb-0">
                                 <li>
@@ -102,7 +103,7 @@
 
             <!-- Copyright -->
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-                © 2021 Diseñado por
+                ${labels.get('DESIGN_BY', pageContext.request)}
                 <a class="text-danger text-decoration-none" href="https://www.fernandopal.es/">Fernando Palomo Moreno</a>
             </div>
             <!-- Copyright -->

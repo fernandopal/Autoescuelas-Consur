@@ -135,7 +135,8 @@ html {
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19); }
   #offersMainSection .off img {
     width: 100%;
-    height: auto; }
+    height: auto;
+    padding: .5rem; }
   #offersMainSection .off span {
     display: block;
     text-align: center;
@@ -143,6 +144,12 @@ html {
     color: #dc3545;
     padding: .1rem;
     text-transform: uppercase; }
+
+  #offersMainSection #pills-tab li a {
+    color: #dadada; }
+
+  #offersMainSection #pills-tab li a:hover, #offersMainSection #pills-tab li a.active {
+    color: #dc3545; }
 
 /* END #offersMainSection */
 /* #doTestsSection */

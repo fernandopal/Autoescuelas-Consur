@@ -8,6 +8,7 @@ package es.fernandopal.autoescuela.controller;
 import es.fernandopal.autoescuela.controller.exceptions.NonexistentEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.PreexistingEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.RollbackFailureException;
+import es.fernandopal.autoescuela.entities.Pagination;
 import es.fernandopal.autoescuela.entities.Rango;
 import es.fernandopal.autoescuela.model.Usuario;
 import java.io.Serializable;
@@ -52,7 +53,6 @@ public class UsuarioJpaController implements Serializable {
             throw ex;
         } finally { if (em != null) em.close(); }
     }
-
     public void edit(Usuario usuario) throws Exception {
         EntityManager em = null;
         EntityTransaction etx = null;
@@ -79,7 +79,6 @@ public class UsuarioJpaController implements Serializable {
             throw ex;
         } finally { if (em != null) em.close(); }
     }
-
     public void destroy(String id) throws Exception {
         EntityManager em = null;
         EntityTransaction etx = null;
@@ -107,26 +106,43 @@ public class UsuarioJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
     }
 
-    public List<Usuario> getAll() {
-        return findUsuarioEntities(true, -1, -1);
-    }
-
-    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult) {
-        return findUsuarioEntities(false, maxResults, firstResult);
-    }
-
-    private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
+    public List<Usuario> paginate(Pagination pagination) {
         final EntityManager em = getEntityManager();
         List<Usuario> result;
         try {
-            Query q = em.createQuery("select object(o) from Usuario as o");
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
+            final Query query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
             }
-            result = q.getResultList();
+
+            result = query.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
+    }
+    public List<Usuario> getAll() {
+        return paginate(null);
+    }
+
+    public List<String> getByRango(String rango, Pagination pagination) {
+        final EntityManager em = getEntityManager();
+        List<String> result;
+        try {
+            final Query query = em.createQuery("SELECT o FROM Usuario o WHERE o.rango = :rango", Usuario.class)
+                    .setParameter("rango", Rango.valueOf(rango));
+
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
+            }
+
+            result = query.getResultList();
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
+    public List<String> getByRango(String rango) {
+        return getByRango(rango, null);
     }
 
     public Usuario findUsuario(String id) {
@@ -142,19 +158,8 @@ public class UsuarioJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         int result;
         try {
-            Query q = em.createQuery("select count(o) from Usuario as o");
+            final Query q = em.createQuery("select count(o) from Usuario as o", Usuario.class);
             result = ((Long) q.getSingleResult()).intValue();
-        } finally { if (em != null) em.close(); }
-        return result;
-    }
-
-    public List<String> getByRango(String rango) {
-        final EntityManager em = getEntityManager();
-        List<String> result;
-        try {
-            final Query query = em.createQuery("SELECT o FROM Usuario o WHERE o.rango = :rango");
-            final Query query1 = query.setParameter("rango", Rango.valueOf(rango));
-            result = query1.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }

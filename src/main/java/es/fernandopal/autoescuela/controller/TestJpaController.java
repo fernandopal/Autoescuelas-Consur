@@ -110,7 +110,7 @@ public class TestJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         List<Test> result;
         try {
-            result = em.createQuery("SELECT OBJECT(o) FROM Test o WHERE o.nombre != 'TEMA'").getResultList();
+            result = em.createQuery("SELECT OBJECT(o) FROM Test o WHERE o.nombre != 'THEME'").getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }
@@ -146,7 +146,7 @@ public class TestJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         int result;
         try {
-            final Query q = em.createQuery("select count(o) from Test o WHERE o.nombre != 'TEMA'");
+            final Query q = em.createQuery("select count(o) from Test o WHERE o.nombre != 'THEME'");
             result = ((Long) q.getSingleResult()).intValue();
         } finally { if (em != null) em.close(); }
         return result;
@@ -156,7 +156,7 @@ public class TestJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         List<String> result;
         try {
-            result = em.createQuery("SELECT DISTINCT(o.tema) FROM Test o WHERE o.nombre = 'TEMA'").getResultList();
+            result = em.createQuery("SELECT DISTINCT(o.tema) FROM Test o WHERE o.nombre = 'THEME'").getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }
@@ -165,7 +165,7 @@ public class TestJpaController implements Serializable {
         final EntityManager em = getEntityManager();
         List<Test> result;
         try {
-            final Query query = em.createQuery("SELECT o FROM Test o WHERE o.tema = :tema AND o.nombre != 'TEMA'");
+            final Query query = em.createQuery("SELECT o FROM Test o WHERE o.tema = :tema AND o.nombre != 'THEME'");
             final Query query1 = query.setParameter("tema", tema);
             result = query1.getResultList();
         } finally { if (em != null) em.close(); }

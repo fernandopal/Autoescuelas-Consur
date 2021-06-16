@@ -1,5 +1,7 @@
 package es.fernandopal.autoescuela.model;
 
+import es.fernandopal.autoescuela.entities.EstadoCoche;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,6 +16,7 @@ public class Coche implements Serializable {
     @Id private String matricula;
     private String registro;
     private String itv;
+    private EstadoCoche estadoCoche;
 
     public String getMatricula() {
         return matricula;
@@ -34,5 +37,12 @@ public class Coche implements Serializable {
     }
     public void setItv(String itv) {
         this.itv = itv;
+    }
+
+    public EstadoCoche getEstado() {
+        return estadoCoche;
+    }
+    public void setEstado(EstadoCoche estadoCoche) {
+        this.estadoCoche = estadoCoche;
     }
 }

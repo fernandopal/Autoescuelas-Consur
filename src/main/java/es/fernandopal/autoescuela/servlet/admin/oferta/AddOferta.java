@@ -2,6 +2,8 @@ package es.fernandopal.autoescuela.servlet.admin.oferta;
 
 import es.fernandopal.autoescuela.controller.Controller;
 import es.fernandopal.autoescuela.model.Oferta;
+import es.fernandopal.autoescuela.util.Label;
+import es.fernandopal.autoescuela.util.Util;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class AddOferta extends HttpServlet {
+    private final Label labels = new Label();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String alert;
 
@@ -31,11 +35,7 @@ public class AddOferta extends HttpServlet {
             final String tipo = request.getParameter("tipo");
 
             if(nombre == null || desc == null || precio == null || tipo == null) {
-                alert = "Alguno de los valores introducidos no era válido";
-                System.out.println("[CXX] nombre: " + nombre);
-                System.out.println("[CXX] desc: " + desc);
-                System.out.println("[CXX] precio: " + precio);
-                System.out.println("[CXX] tipo: " + tipo);
+                alert = labels.get("INVALID_VALUE_INSERTED", request);
 
             } else {
                 final double precioAsNumber = Double.parseDouble(precio);
@@ -44,7 +44,7 @@ public class AddOferta extends HttpServlet {
                 oferta.setNombre(nombre);
                 oferta.setDescripcion(desc);
                 oferta.setPrecio(precioAsNumber);
-                oferta.setImg(null);
+//                oferta.setImg(null);
                 oferta.setTipo(tipo);
                 cn.getOfertas().create(oferta);
 
@@ -73,23 +73,21 @@ public class AddOferta extends HttpServlet {
 
                 path = request.getContextPath() + "/media/ofertas/" + oferta.getId() + "/" + filePart.getSubmittedFileName();
 
-                oferta.setImg(path);
+//                oferta.setImg(path);
                 cn.getOfertas().edit(oferta);
                 /*----------------------------------------------------------------------------------------------------*/
 
-                alert = "Oferta añadida con éxito";
-
-                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                alert = labels.get("ADDED_OFERTA", request);
+                Util.sendMessage(null, "/admin", alert, request, response);
                 return;
 
             }
 
         } catch (Exception ex) {
-            alert = "No se ha podido añadir la oferta. Error: " + ex.getMessage();
+            alert = labels.get("CANT_ADD_OFFER", request);
 
         }
-
-        response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error"));
+        Util.sendMessage("CUSTOM", "/admin", alert, request, response);
 
     }
 

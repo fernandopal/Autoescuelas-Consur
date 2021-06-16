@@ -168,6 +168,7 @@ html {
     img {
       width: 100%;
       height: auto;
+      padding: .5rem;
 
     }
 
@@ -178,6 +179,24 @@ html {
       color: #dc3545;
       padding: .1rem;
       text-transform: uppercase;
+
+    }
+
+  }
+
+  #pills-tab li {
+    a {
+      color: #dadada;
+
+      &:hover {
+        color: #dc3545;
+
+      }
+
+      .active {
+        color: #dc3545;
+
+      }
 
     }
 

@@ -8,7 +8,10 @@ package es.fernandopal.autoescuela.controller;
 import es.fernandopal.autoescuela.controller.exceptions.NonexistentEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.PreexistingEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.RollbackFailureException;
+import es.fernandopal.autoescuela.entities.EstadoCoche;
 import es.fernandopal.autoescuela.model.Coche;
+import es.fernandopal.autoescuela.model.Intento;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -134,6 +137,17 @@ public class CocheJpaController implements Serializable {
         Coche result;
         try {
             result = em.find(Coche.class, id);
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
+
+    public List<Coche> getCochesByEstado(EstadoCoche estado) {
+        final EntityManager em = getEntityManager();
+        List<Coche> result;
+        try {
+            final Query query = em.createQuery("SELECT coche FROM Coche coche WHERE coche.estadoCoche = :estado");
+            final Query query1 = query.setParameter("estado", estado);
+            result = query1.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }

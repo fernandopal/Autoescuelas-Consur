@@ -16,4 +16,8 @@ public class Logout extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/home");
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        this.doPost(request, response);
+    }
 }

@@ -5,9 +5,11 @@
   Time: 21:00
   To change this template use File | Settings | File Templates.
 --%>
-<%@page pageEncoding="iso-8859-1" contentType="text/html; charset=UTF-8" %>
+<%@page pageEncoding="ISO-8859-1" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="cn" class="es.fernandopal.autoescuela.controller.Controller"/>
+<jsp:useBean id="labels" class="es.fernandopal.autoescuela.util.Label"/>
+
 
 <html>
     <head>
@@ -18,7 +20,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Admin - Consur Autoescuelas</title>
+        <title>${labels.get('ADMIN', pageContext.request)} - ${labels.get('BRAND_NAME', pageContext.request)}</title>
 
         <!-- Custom fonts for this template-->
         <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,7 +42,7 @@
         <nav id="sidebar" class="sidebar-wrapper">
             <div class="sidebar-content">
                 <div class="sidebar-brand">
-                    <span>Administración</span>
+                    <span>${labels.get('ADMINISTRATION', pageContext.request)}</span>
                     <div id="close-sidebar"><i class="fas fa-times"></i></div>
                 </div>
                 <div class="sidebar-menu">
@@ -49,7 +51,7 @@
                         <li class="enable-hover ${empty param.view || param.view == 'dashboard' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=dashboard">
                                 <i class="fa fa-home"></i>
-                                <span>Inicio</span>
+                                <span>${labels.get('HOME', pageContext.request)}</span>
                             </a>
                         </li>
 
@@ -57,35 +59,35 @@
                         <li class="enable-hover ${param.view == 'usuarios' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=usuarios">
                                 <i class="fa fa-user-alt"></i>
-                                <span>Usuarios</span>
+                                <span>${labels.get('USERS', pageContext.request)}</span>
                                 <span class="badge rounded-pill bg-secondary">${cn.usuarios.count}</span>
                             </a>
                         </li>
                         <li class="enable-hover ${param.view == 'temas' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=temas">
                                 <i class="fas fa-book"></i>
-                                <span>Temas</span>
+                                <span>${labels.get('THEMES', pageContext.request)}</span>
                                 <span class="badge rounded-pill bg-secondary">${cn.tests.allTemas.size()}</span>
                             </a>
                         </li>
                         <li class="enable-hover ${param.view == 'tests' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=tests">
                                 <i class="far fa-file-alt"></i>
-                                <span>Tests</span>
+                                <span>${labels.get('TESTS', pageContext.request)}</span>
                                 <span class="badge rounded-pill bg-secondary">${cn.tests.count}</span>
                             </a>
                         </li>
                         <li class="enable-hover ${param.view == 'coches' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=coches">
                                 <i class="fas fa-car"></i>
-                                <span>Coches</span>
+                                <span>${labels.get('CARS', pageContext.request)}</span>
                                 <span class="badge rounded-pill bg-secondary">${cn.coches.count}</span>
                             </a>
                         </li>
                         <li class="enable-hover ${param.view == 'ofertas' ? 'active' : ''}">
                             <a href="${pageContext.request.contextPath}/admin?view=ofertas">
                                 <i class="fas fa-tags"></i>
-                                <span>Ofertas</span>
+                                <span>${labels.get('OFFERS', pageContext.request)}</span>
                                 <span class="badge rounded-pill bg-secondary">${cn.ofertas.count}</span>
                             </a>
                         </li>
@@ -96,9 +98,9 @@
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
-                <c:if test="${!empty param.alert}">
-                    <div class="alert ${!empty param.error ? "alert-secondary" : "alert-danger"} m-3 alert-dismissible fade show" role="alert">
-                        ${param.alert}
+                <c:if test="${!empty message}">
+                    <div class="alert ${empty error ? "alert-secondary" : "alert-danger"} m-3 alert-dismissible fade show" role="alert">
+                            ${message}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 </c:if>
