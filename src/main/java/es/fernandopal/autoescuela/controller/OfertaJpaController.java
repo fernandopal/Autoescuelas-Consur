@@ -8,6 +8,9 @@ package es.fernandopal.autoescuela.controller;
 import es.fernandopal.autoescuela.controller.exceptions.NonexistentEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.PreexistingEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.RollbackFailureException;
+import es.fernandopal.autoescuela.entities.EstadoCoche;
+import es.fernandopal.autoescuela.entities.Pagination;
+import es.fernandopal.autoescuela.model.Coche;
 import es.fernandopal.autoescuela.model.Oferta;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,7 +54,6 @@ public class OfertaJpaController implements Serializable {
             throw ex;
         } finally { if (em != null) em.close(); }
     }
-
     public void edit(Oferta oferta) throws Exception {
         EntityManager em = null;
         EntityTransaction etx = null;
@@ -79,8 +81,7 @@ public class OfertaJpaController implements Serializable {
             throw ex;
         } finally { if (em != null) em.close(); }
     }
-
-    public void destroy(String id) throws Exception {
+    public void destroy(int id) throws Exception {
         EntityManager em = null;
         EntityTransaction etx = null;
 
@@ -108,32 +109,43 @@ public class OfertaJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
     }
 
-    public List<Oferta> getAll() {
-        return findOfertaEntities(true, -1, -1);
-    }
-
-    public List<Oferta> findByType(String type) {
-        final List<Oferta> tmp = new ArrayList<>();
-        getAll().forEach(oferta -> { if(oferta.getTipo().equals(type)) tmp.add(oferta); });
-        return tmp;
-    }
-
-    public List<Oferta> findOfertaEntities(int maxResults, int firstResult) {
-        return findOfertaEntities(false, maxResults, firstResult);
-    }
-
-    private List<Oferta> findOfertaEntities(boolean all, int maxResults, int firstResult) {
+    public List<Oferta> paginate(Pagination pagination) {
         final EntityManager em = getEntityManager();
         List<Oferta> result;
         try {
-            Query q = em.createQuery("select object(o) from Oferta o WHERE o.descripcion != 'TIPO'");
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
+            final Query query = em.createQuery("SELECT o FROM Oferta o WHERE o.descripcion != 'TIPO'", Oferta.class);
+
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
             }
-            result = q.getResultList();
+
+            result = query.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
+    }
+    public List<Oferta> getAll() {
+        return paginate(null);
+    }
+
+    public List<Oferta> findByType(String tipo, Pagination pagination) {
+        final EntityManager em = getEntityManager();
+        List<Oferta> result;
+        try {
+            final Query query = em.createQuery("SELECT o FROM Oferta o WHERE o.tipo = :tipo AND o.descripcion != 'TIPO'")
+                    .setParameter("tipo", tipo);
+
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
+            }
+
+            result = query.getResultList();
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
+    public List<Oferta> findByType(String tipo) {
+        return findByType(tipo, null);
     }
 
     public Oferta findOferta(int id) {
@@ -144,17 +156,6 @@ public class OfertaJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
         return result;
     }
-
-    public int getCount() {
-        final EntityManager em = getEntityManager();
-        int result;
-        try {
-            final Query q = em.createQuery("select count(o) from Oferta o WHERE o.descripcion != 'TIPO'");
-            result = ((Long) q.getSingleResult()).intValue();
-        } finally { if (em != null) em.close(); }
-        return result;
-    }
-
     public List<String> getAllTypes() {
         final EntityManager em = getEntityManager();
         List<String> result;
@@ -163,7 +164,6 @@ public class OfertaJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
         return result;
     }
-
     public int getCountOf(String tipo) {
         final EntityManager em = getEntityManager();
         int result;
@@ -171,6 +171,15 @@ public class OfertaJpaController implements Serializable {
             final Query query = em.createQuery("SELECT COUNT(o) FROM Oferta o WHERE o.tipo = :tipo AND o.descripcion != 'TIPO'");
             final Query query1 = query.setParameter("tipo", tipo);
             result = ((Long) query1.getSingleResult()).intValue();
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
+    public int getCount() {
+        final EntityManager em = getEntityManager();
+        int result;
+        try {
+            final Query q = em.createQuery("select count(o) from Oferta o WHERE o.descripcion != 'TIPO'");
+            result = ((Long) q.getSingleResult()).intValue();
         } finally { if (em != null) em.close(); }
         return result;
     }

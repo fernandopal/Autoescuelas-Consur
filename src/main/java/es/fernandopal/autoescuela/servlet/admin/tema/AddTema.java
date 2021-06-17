@@ -34,7 +34,7 @@ public class AddTema extends HttpServlet {
                 if(cn.getTests().findByTema(temaAsInt).isEmpty()) {
                     test.setTema(temaAsInt);
                     test.setPreguntas(null);
-                    test.setNombre("THEME");
+                    test.setNombre("TEMA");
 
                     cn.getTests().create(test, false);
                     alert = labels.get("ADDED_TEMA", request);
@@ -42,7 +42,7 @@ public class AddTema extends HttpServlet {
                     return;
 
                 } else {
-                    alert = labels.get("TEMA_ALREADY_EXISTS", request);
+                    alert = labels.get("THEME_ALREADY_EXISTS", request);
 
                 }
 

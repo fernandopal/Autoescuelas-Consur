@@ -1,9 +1,6 @@
 package es.fernandopal.autoescuela.model;
 
-
-import es.fernandopal.autoescuela.controller.Controller;
 import javax.persistence.*;
-import java.awt.*;
 import java.io.Serializable;
 
 @Entity
@@ -17,10 +14,7 @@ public class Oferta implements Serializable {
     private String nombre;
     private String tipo;
     private String descripcion;
-//    private String img;
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    private byte[] img;
+    private String img;
     private double precio;
 
     public int getId() {
@@ -58,22 +52,10 @@ public class Oferta implements Serializable {
         this.precio = precio;
     }
 
-//    public String getImg() {
-//        return img;
-//    }
-//    public void setImg(String img) {
-//        this.img = img;
-//    }
-
-//    public Image generateImage(Usuario user) {
-//        final Controller cn = new Controller();
-//        final String id = user.getDni();
-//        StreamResource sr = new StreamResource("user", () ->  {
-//            Usuario attached = cn.us
-//            return new ByteArrayInputStream(attached.getProfilePicture());
-//        });
-//        sr.setContentType("image/png");
-//        Image image = new Image(sr, "profile-picture");
-//        return image;
-//    }
+    public String getImg() {
+        return img;
+    }
+    public void setImg(String img) {
+        this.img = img;
+    }
 }

@@ -1,4 +1,4 @@
-package es.fernandopal.autoescuela.servlet.admin.oferta;
+package es.fernandopal.autoescuela.servlet.admin.car;
 
 import es.fernandopal.autoescuela.controller.Controller;
 import es.fernandopal.autoescuela.util.Label;
@@ -9,24 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class DeleteOferta extends HttpServlet {
+public class DeleteCar extends HttpServlet {
     private final Label labels = new Label();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String alert;
 
         try {
-            final String id = request.getParameter("id");
+            final String matricula = request.getParameter("matricula");
 
-            if (id == null) {
-                alert = labels.get("INVALID_OFFER_SELECTED", request);
+            if (matricula == null) {
+                alert = labels.get("INVALID_CAR_SELECTED", request);
 
             } else {
                 final Controller cn = new Controller();
-                final int idAsInt = Integer.parseInt(id);
 
-                cn.getOfertas().destroy(idAsInt);
-                alert = labels.get("OFFER_DELETED", request);
+                cn.getCoches().destroy(matricula);
+                alert = labels.get("CAR_DELETED", request);
                 Util.sendMessage(null, "/admin", alert, request, response);
                 return;
 
@@ -34,7 +33,7 @@ public class DeleteOferta extends HttpServlet {
 
 
         } catch (Exception ex) {
-            alert = labels.get("CANT_DELETE_OFFER", request);
+            alert = labels.get("CANT_DELETE_CAR", request);
             ex.printStackTrace();
 
         }

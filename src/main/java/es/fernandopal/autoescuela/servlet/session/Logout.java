@@ -1,5 +1,7 @@
 package es.fernandopal.autoescuela.servlet.session;
 
+import es.fernandopal.autoescuela.util.Util;
+
 import javax.servlet.http.*;
 import java.io.IOException;
 
@@ -8,7 +10,7 @@ public class Logout extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getSession() != null) {
             request.getSession().invalidate();
-            response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/home?alert=Se ha cerrado la sesión"));
+            Util.sendMessage(null, "/home", "Se ha cerrado la sesión", request, response);
             return;
 
         }

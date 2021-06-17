@@ -8,7 +8,10 @@ package es.fernandopal.autoescuela.controller;
 import es.fernandopal.autoescuela.controller.exceptions.NonexistentEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.PreexistingEntityException;
 import es.fernandopal.autoescuela.controller.exceptions.RollbackFailureException;
+import es.fernandopal.autoescuela.entities.Pagination;
 import es.fernandopal.autoescuela.model.Test;
+import es.fernandopal.autoescuela.model.Usuario;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -105,34 +108,54 @@ public class TestJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
     }
 
-    public List<Test> getAll() {
-//        return findTestEntities(true, -1, -1);
+    public List<Test> paginate(Pagination pagination) {
         final EntityManager em = getEntityManager();
         List<Test> result;
         try {
-            result = em.createQuery("SELECT OBJECT(o) FROM Test o WHERE o.nombre != 'THEME'").getResultList();
-        } finally { if (em != null) em.close(); }
-        return result;
-    }
+            final Query query = em.createQuery("SELECT t FROM Test t WHERE t.nombre != 'TEMA' ORDER BY t.nombre ASC", Test.class);
 
-    public List<Test> findTestEntities(int maxResults, int firstResult) {
-        return findTestEntities(false, maxResults, firstResult);
-    }
-
-    private List<Test> findTestEntities(boolean all, int maxResults, int firstResult) {
-        final EntityManager em = getEntityManager();
-        List<Test> result;
-        try {
-            final Query q = em.createQuery("select object(o) from Test as o");
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
             }
-            result = q.getResultList();
+
+            result = query.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }
+    public List<Test> getAll() {
+        return paginate(null);
+    }
 
+    public List<String> getAllTemas(Pagination pagination) {
+        final EntityManager em = getEntityManager();
+        List<String> result;
+        try {
+            final Query query = em.createQuery("SELECT DISTINCT(t.tema) FROM Test t WHERE t.nombre = 'TEMA' ORDER BY t.tema ASC");
+
+            if(pagination != null) {
+                query.setMaxResults(pagination.getMaxResults())
+                        .setFirstResult(pagination.getPage() * pagination.getMaxResults());
+            }
+
+            result = query.getResultList();
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
+    public List<String> getAllTemas() {
+        return getAllTemas(null);
+    }
+
+    public List<Test> findByTema(int tema) {
+        final EntityManager em = getEntityManager();
+        List<Test> result;
+        try {
+            final Query query = em.createQuery("SELECT o FROM Test o WHERE o.tema = :tema AND o.nombre != 'TEMA'");
+            final Query query1 = query.setParameter("tema", tema);
+            result = query1.getResultList();
+        } finally { if (em != null) em.close(); }
+        return result;
+    }
     public Test findTest(int id) {
         final EntityManager em = getEntityManager();
         Test result;
@@ -141,33 +164,12 @@ public class TestJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
         return result;
     }
-
     public int getCount() {
         final EntityManager em = getEntityManager();
         int result;
         try {
-            final Query q = em.createQuery("select count(o) from Test o WHERE o.nombre != 'THEME'");
+            final Query q = em.createQuery("select count(o) from Test o WHERE o.nombre != 'TEMA'");
             result = ((Long) q.getSingleResult()).intValue();
-        } finally { if (em != null) em.close(); }
-        return result;
-    }
-
-    public List<String> getAllTemas() {
-        final EntityManager em = getEntityManager();
-        List<String> result;
-        try {
-            result = em.createQuery("SELECT DISTINCT(o.tema) FROM Test o WHERE o.nombre = 'THEME'").getResultList();
-        } finally { if (em != null) em.close(); }
-        return result;
-    }
-
-    public List<Test> findByTema(int tema) {
-        final EntityManager em = getEntityManager();
-        List<Test> result;
-        try {
-            final Query query = em.createQuery("SELECT o FROM Test o WHERE o.tema = :tema AND o.nombre != 'THEME'");
-            final Query query1 = query.setParameter("tema", tema);
-            result = query1.getResultList();
         } finally { if (em != null) em.close(); }
         return result;
     }

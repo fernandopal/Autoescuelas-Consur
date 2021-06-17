@@ -125,9 +125,9 @@ public class UsuarioJpaController implements Serializable {
         return paginate(null);
     }
 
-    public List<String> getByRango(String rango, Pagination pagination) {
+    public List<Usuario> getByRango(String rango, Pagination pagination) {
         final EntityManager em = getEntityManager();
-        List<String> result;
+        List<Usuario> result;
         try {
             final Query query = em.createQuery("SELECT o FROM Usuario o WHERE o.rango = :rango", Usuario.class)
                     .setParameter("rango", Rango.valueOf(rango));
@@ -141,7 +141,7 @@ public class UsuarioJpaController implements Serializable {
         } finally { if (em != null) em.close(); }
         return result;
     }
-    public List<String> getByRango(String rango) {
+    public List<Usuario> getByRango(String rango) {
         return getByRango(rango, null);
     }
 

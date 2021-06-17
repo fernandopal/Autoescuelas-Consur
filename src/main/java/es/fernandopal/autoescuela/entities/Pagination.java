@@ -5,8 +5,8 @@ public class Pagination {
     private Integer maxResults;
 
     public Pagination() {
-        this.page = 1;
-        this.maxResults = 10;
+        this.page = 0;
+        this.maxResults = 20;
     }
 
     public Pagination(Integer page, Integer maxResults) {

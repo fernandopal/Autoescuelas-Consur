@@ -6,7 +6,7 @@
         <properties>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://outnet.fernandopal.es:3306/autoescuela?useUnicode=yes&amp;characterEncoding=ISO-8859-1"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://outnet.fernandopal.es:3306/autoescuela?useUnicode=yes&amp;characterEncoding=UTF-8"/>
             <property name="javax.persistence.jdbc.user" value="autoescuela"/>
             <property name="javax.persistence.jdbc.password" value="AE2021"/>
             <property name="eclipselink.logging.level" value="FINE"/>

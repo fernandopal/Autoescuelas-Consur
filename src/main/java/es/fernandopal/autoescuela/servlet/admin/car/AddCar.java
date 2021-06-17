@@ -1,6 +1,8 @@
-package es.fernandopal.autoescuela.servlet.admin.oferta;
+package es.fernandopal.autoescuela.servlet.admin.car;
 
 import es.fernandopal.autoescuela.controller.Controller;
+import es.fernandopal.autoescuela.entities.EstadoCoche;
+import es.fernandopal.autoescuela.model.Coche;
 import es.fernandopal.autoescuela.model.Oferta;
 import es.fernandopal.autoescuela.util.Label;
 import es.fernandopal.autoescuela.util.Util;
@@ -11,42 +13,43 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 
-public class AddOferta extends HttpServlet {
+public class AddCar extends HttpServlet {
     private final Label labels = new Label();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String alert;
 
         try {
-            final Oferta oferta = new Oferta();
+            final Coche coche = new Coche();
 
-            final String nombre = request.getParameter("nombre");
-            final String desc = request.getParameter("desc");
-            final String precio = request.getParameter("precio");
-            final String tipo = request.getParameter("tipo");
+            final String matricula = request.getParameter("matricula");
+            final String fechaItv = request.getParameter("fecha-itv");
+            final String fechaReg = request.getParameter("fecha-reg");
 
-            if(nombre == null || desc == null || precio == null || tipo == null) {
+            if(matricula == null || fechaItv == null || fechaReg == null) {
                 alert = labels.get("INVALID_VALUE_INSERTED", request);
 
             } else {
-                final double precioAsNumber = Double.parseDouble(precio);
                 final Controller cn = new Controller();
+                final SimpleDateFormat inDF = new SimpleDateFormat("yyyy-MM-dd");
+                final SimpleDateFormat outDF = new SimpleDateFormat("dd/MM/yyyy");
 
-                oferta.setNombre(nombre);
-                oferta.setDescripcion(desc);
-                oferta.setPrecio(precioAsNumber);
-                oferta.setTipo(tipo);
-                cn.getOfertas().create(oferta);
+                coche.setMatricula(matricula);
+                coche.setEstado(EstadoCoche.DISPONIBLE);
+                coche.setRegistro(outDF.format(inDF.parse(fechaReg)));
+                coche.setItv(outDF.format(inDF.parse(fechaItv)));
+                cn.getCoches().create(coche);
 
-                alert = labels.get("ADDED_OFFER", request);
+                alert = labels.get("ADDED_CAR", request);
                 Util.sendMessage(null, "/admin", alert, request, response);
                 return;
 
             }
 
         } catch (Exception ex) {
-            alert = labels.get("CANT_ADD_OFFER", request);
+            alert = labels.get("CANT_ADD_CAR", request);
             ex.printStackTrace();
 
         }

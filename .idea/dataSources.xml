@@ -5,7 +5,7 @@
       <driver-ref>mariadb</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://intranet.fernandopal.es:3306/</jdbc-url>
+      <jdbc-url>jdbc:mariadb://192.168.0.11:3306/</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="MariaDB outnet" uuid="44c424fa-3557-4657-8482-e66eaf33a2a2">

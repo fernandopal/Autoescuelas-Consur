@@ -31,8 +31,8 @@ public class Util {
         try {
             request.setCharacterEncoding("UTF-8");
             request.setAttribute("message", message);
-            request.setAttribute("error", "403");
-            request.getRequestDispatcher("/home").forward(request, response);
+            request.setAttribute("error", error);
+            request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception ignored) { }
     }
 }

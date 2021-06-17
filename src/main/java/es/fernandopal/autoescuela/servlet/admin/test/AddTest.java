@@ -4,6 +4,7 @@ import es.fernandopal.autoescuela.controller.Controller;
 import es.fernandopal.autoescuela.model.Pregunta;
 import es.fernandopal.autoescuela.model.Respuesta;
 import es.fernandopal.autoescuela.model.Test;
+import es.fernandopal.autoescuela.util.Util;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,7 @@ public class AddTest extends HttpServlet {
                     final String preguntaStr = request.getParameter("p"+p);
                     final String categoria = request.getParameter("p"+p+"c");
                     final Pregunta pregunta = new Pregunta();
+                    System.out.println("########PREG: " + preguntaStr);
                     pregunta.setPregunta(preguntaStr);
                     pregunta.setTest(test);
                     pregunta.setCategoria(categoria);
@@ -44,6 +46,7 @@ public class AddTest extends HttpServlet {
                     if(preguntaStr != null && !preguntaStr.isEmpty()) {
                         for(int r = 1; r <= 4; r++) {
                             final String respuestaStr = request.getParameter("p"+p+"r"+r);
+                            System.out.println("########RESP: " + respuestaStr);
 
                             final Respuesta respuesta = new Respuesta();
                             respuesta.setCorrecta(r == 1);
@@ -62,18 +65,17 @@ public class AddTest extends HttpServlet {
                 cn.getTests().create(test, true);
 
                 alert = "Test creado con éxito";
-
-                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                Util.sendMessage(null, "/admin", alert, request, response);
                 return;
 
             }
 
         } catch (Exception ex) {
             alert = "No se ha podido crear el test. Error: " + ex.getMessage();
+            ex.printStackTrace();
 
         }
-
-        response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error"));
+        Util.sendMessage("LOGIN", "/admin", alert, request, response);
 
     }
 

@@ -15,28 +15,18 @@ public class DeleteUsuario extends HttpServlet {
         String alert;
 
         try {
-            final Usuario admin = (Usuario) request.getSession().getAttribute("usuario");
+            final String dni = request.getParameter("dni");
 
-            if(admin == null) {
-                alert = "Necesitas iniciar sesión como administrador para poder hacer esto";
-                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/home?alert=" + alert + "&error"));
-                return;
+            if(dni == null) {
+                alert = "El dni enviado no es válido";
 
             } else {
-                final String dni = request.getParameter("dni");
+                final Controller cn = new Controller();
+                cn.getUsuarios().destroy(dni);
+                alert = "Usuario eliminado con éxito";
 
-                if(dni == null) {
-                    alert = "El dni enviado no es válido";
-
-                } else {
-                    final Controller cn = new Controller();
-                    cn.getUsuarios().destroy(dni);
-                    alert = "Usuario eliminado con éxito";
-
-                    response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
-                    return;
-
-                }
+                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                return;
 
             }
 

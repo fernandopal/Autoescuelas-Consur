@@ -13,30 +13,20 @@ public class DeleteTest extends HttpServlet {
         String alert;
 
         try {
-            final Usuario admin = (Usuario) request.getSession().getAttribute("usuario");
+            final String id = request.getParameter("id");
 
-            if(admin == null) {
-                alert = "Necesitas iniciar sesión como administrador para poder hacer esto";
-                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/home?alert=" + alert + "&error"));
-                return;
+            if(id == null) {
+                alert = "El test seleccionado no es válido";
 
             } else {
-                final String id = request.getParameter("id");
+                final Controller cn = new Controller();
+                final int idAsInt = Integer.parseInt(id);
 
-                if(id == null) {
-                    alert = "El test seleccionado no es válido";
+                cn.getTests().destroy(idAsInt);
+                alert = "Test eliminado con éxito";
 
-                } else {
-                    final Controller cn = new Controller();
-                    final int idAsInt = Integer.parseInt(id);
-
-                    cn.getTests().destroy(idAsInt);
-                    alert = "Test eliminado con éxito";
-
-                    response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
-                    return;
-
-                }
+                response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/admin?alert=" + alert + "&error=false"));
+                return;
 
             }
 

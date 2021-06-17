@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
                         // Login correcto
                         final HttpSession session = request.getSession();
                         session.setAttribute("usuario", u);
-                        response.sendRedirect(request.getContextPath() + "/home");
+                        Util.sendMessage(null, "/home", "Login correcto", request, response);
                         return;
 
                     }
@@ -51,8 +51,7 @@ public class Login extends HttpServlet {
             }
 
         }
-
-        response.sendRedirect(request.getContextPath() + response.encodeRedirectURL("/home?alert=" + alert + "&error"));
+        Util.sendMessage("LOGIN", "/home", alert, request, response);
     }
 
 }

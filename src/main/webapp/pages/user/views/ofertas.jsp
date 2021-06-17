@@ -33,7 +33,7 @@
                         <div class="tab-pane fade show active" id="todos" role="tabpanel" aria-labelledby="todos-tab">
                             <c:forEach items="${lAll}" var="off">
                                 <div class="off">
-                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png"></a>
+                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png" alt=""></a>
                                     <span>${off.nombre} - ${off.precio}${labels.get('CURRENCY_SYMBOL', pageContext.request)}</span>
                                 </div>
                             </c:forEach>
@@ -42,7 +42,7 @@
                         <div class="tab-pane fade" id="coche" role="tabpanel" aria-labelledby="coche-tab">
                             <c:forEach items="${cn.ofertas.findByType('coche')}" var="off">
                                 <div class="off">
-                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png"></a>
+                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png" alt=""></a>
                                     <span>${off.nombre} - ${off.precio}${labels.get('CURRENCY_SYMBOL', pageContext.request)}</span>
                                 </div>
                             </c:forEach>
@@ -51,7 +51,7 @@
                         <div class="tab-pane fade" id="moto" role="tabpanel" aria-labelledby="moto-tab">
                             <c:forEach items="${cn.ofertas.findByType('moto')}" var="off">
                                 <div class="off">
-                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png"></a>
+                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png" alt=""></a>
                                     <span>${off.nombre} - ${off.precio}${labels.get('CURRENCY_SYMBOL', pageContext.request)}</span>
                                 </div>
                             </c:forEach>
@@ -60,7 +60,7 @@
                         <div class="tab-pane fade" id="otros" role="tabpanel" aria-labelledby="otros-tab">
                             <c:forEach items="${cn.ofertas.findByType('otro')}" var="off">
                                 <div class="off">
-                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png"></a>
+                                    <a href="${pageContext.request.contextPath}/ofertas/v/${off.id}"><img src="${pageContext.request.contextPath}/assets/img/offer-icon.png" alt=""></a>
                                     <span>${off.nombre} - ${off.precio}${labels.get('CURRENCY_SYMBOL', pageContext.request)}</span>
                                 </div>
                             </c:forEach>

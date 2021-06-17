@@ -39,7 +39,7 @@
             </ol>
         </nav>
 
-        <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/a/add/oferta" method="post" enctype="multipart/form-data">
+        <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/a/add/oferta" method="post">
             <div class="mb-3 row g-3">
                 <div class="col-lg-11 col-sm-12">
                     <label for="nombre" class="form-label">${labels.get('NAME', pageContext.request)}</label>
@@ -50,10 +50,6 @@
                     <input type="number" class="form-control" id="precio" name="precio">
                 </div>
             </div>
-<%--            <div class="mb-3">--%>
-<%--                <label for="img" class="form-label">${labels.get('IMAGE', pageContext.request)}</label>--%>
-<%--                <input type="file" class="form-control" id="img" name="img">--%>
-<%--            </div>--%>
             <div class="mb-3">
                 <label for="tipo" class="form-label">${labels.get('TYPE', pageContext.request)}</label>
                 <select class="form-select" aria-label="${labels.get('OFFER_TYPE', pageContext.request)}" id="tipo" name="tipo">

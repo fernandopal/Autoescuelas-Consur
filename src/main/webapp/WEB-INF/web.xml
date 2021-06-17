@@ -281,6 +281,39 @@
         <url-pattern>/app/a/fragments/coches</url-pattern>
     </servlet-mapping>
     <!--END /app/a/fragments/coches-->
+
+    <!--/admin/add/coche-->
+    <servlet>
+        <servlet-name>AdminCocheAddFront</servlet-name>
+        <jsp-file>/pages/admin/views/coches/addCoche.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCocheAddFront</servlet-name>
+        <url-pattern>/admin/add/coche</url-pattern>
+    </servlet-mapping>
+    <!--END /admin/add/coche-->
+
+    <!--/app/a/add/coche-->
+    <servlet>
+        <servlet-name>AdminCarAddBack</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.admin.car.AddCar</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCarAddBack</servlet-name>
+        <url-pattern>/app/a/add/coche</url-pattern>
+    </servlet-mapping>
+    <!--END /app/a/add/coche-->
+
+    <!--/app/a/delete/coche-->
+    <servlet>
+        <servlet-name>AdminCarDeleteBack</servlet-name>
+        <servlet-class>es.fernandopal.autoescuela.servlet.admin.car.DeleteCar</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminCarDeleteBack</servlet-name>
+        <url-pattern>/app/a/delete/coche</url-pattern>
+    </servlet-mapping>
+    <!--END /app/a/delete/coche-->
 <!--  END CARS  -->
 
 

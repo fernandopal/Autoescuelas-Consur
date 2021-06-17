@@ -44,28 +44,18 @@
 
                             <c:otherwise>
                                 <h3>${currentTest.nombre}</h3>
-                                <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/checktest?id=${param.test}" method="post">
-                                    <c:forEach var="pregunta" items="${currentTest.preguntas}" varStatus="status">
-                                        <label class="fw-bold" for="pregunta-${status.count}">${status.count}. ${pregunta.pregunta}</label>
-                                        <div class="mb-4" id="pregunta-${status.count}">
-                                            <c:forEach var="respuesta" items="${pregunta.respuestas}" varStatus="respStatus">
-                                                <div class="form-check">
-                                                    <input
-                                                            class="form-check-input"
-                                                            type="radio"
-                                                            name="rp${status.count}"
-                                                            id="p${status.count}r${respuesta.id}"
-                                                            value="${respuesta.correcta ? 1 : 0}"
-                                                            required
-                                                    >
-                                                    <label class="form-check-label" for="p${status.count}r${respStatus.count}">${respuesta.respuesta}</label>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </c:forEach>
-                                    <button type="submit" class="btn btn-primary">${labels.get('SEND_AND_CHECK', pageContext.request)}</button>
-                                </form>
+                                <c:forEach var="pregunta" items="${currentTest.preguntas}" varStatus="status">
+                                    <label class="fw-bold" for="pregunta-${status.count}">${status.count}. ${pregunta.pregunta}</label>
+
+                                    <ul class="pregunta">
+                                        <c:forEach var="respuesta" items="${pregunta.respuestas}">
+                                            <li class="rounded respuesta" vl="${respuesta.correcta ? '1' : '0'}" pr="${pregunta.id}">${respuesta.respuesta}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:forEach>
                                 <p class="text-danger fst-italic">${labels.get('ALL_FIELDS_REQUIRED', pageContext.request)}</p>
+                                <p class="fw-bold">${labels.get('TEST_SCORE', pageContext.request)} <span id="score">0</span>/10</p>
+                                <button type="button" class="btn btn-danger" id="enviar" disabled>${labels.get('SEND_AND_SAVE', pageContext.request)}</button>
                             </c:otherwise>
                         </c:choose>
                     </c:when>
@@ -95,5 +85,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $().ready(function () {
+            let score = $("#score");
+            let enviar = $("#enviar");
+            let contestadas = [];
+            let correctas = 0;
+
+            $(".respuesta").on('click', function(event) {
+                let respuesta = $(this);
+                if($.inArray(respuesta.attr('pr'), contestadas) === -1) {
+                    if(respuesta.attr('vl') === '1') {
+                        respuesta.addClass('correcta');
+                        correctas++;
+                    } else {
+                        respuesta.addClass('incorrecta');
+                    }
+                    contestadas.push(respuesta.attr('pr'));
+                }
+
+                score.text(correctas + '');
+
+                if(contestadas.length >= 10) {
+                    enviar.removeAttr("disabled");
+                }
+            });
+        });
+    </script>
 </main>
 <%----%>

@@ -19,38 +19,28 @@ public class DeleteTema extends HttpServlet {
         String alert;
 
         try {
-            final Usuario admin = (Usuario) request.getSession().getAttribute("usuario");
+            final String tema = request.getParameter("tema");
 
-            if(admin == null) {
-                alert = labels.get("YOU_NEED_ADMIN_PERMISSION", request);
-                Util.sendMessage(null, "/admin", alert, request, response);
-                return;
+            if(tema == null) {
+                alert = labels.get("INVALID_THEME", request);
 
             } else {
-                final String tema = request.getParameter("tema");
+                final Controller cn = new Controller();
+                final int temaAsInt = Integer.parseInt(tema);
 
-                if(tema == null) {
-                    alert = labels.get("INVALID_THEME", request);
-
-                } else {
-                    final Controller cn = new Controller();
-                    final int temaAsInt = Integer.parseInt(tema);
-
-                    final List<Test> temas = cn.getTests().findByTema(temaAsInt);
-                    for (Test t : temas) {
-                        if(t.getNombre().equals("THEME") && t.getTema() == temaAsInt) {
-                            cn.getTests().destroy(t.getId());
-                            break;
-
-                        }
+                final List<Test> temas = cn.getTests().findByTema(temaAsInt);
+                for (Test t : temas) {
+                    if(t.getNombre().equals("THEME") && t.getTema() == temaAsInt) {
+                        cn.getTests().destroy(t.getId());
+                        break;
 
                     }
 
-                    alert = labels.get("DELETED_TEMA", request);
-                    Util.sendMessage("CUSTOM", "/admin", alert, request, response);
-                    return;
-
                 }
+
+                alert = labels.get("DELETED_TEMA", request);
+                Util.sendMessage("CUSTOM", "/admin", alert, request, response);
+                return;
 
             }
 
