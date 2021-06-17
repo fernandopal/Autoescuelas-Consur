@@ -35,6 +35,9 @@
             </div>
             <div class="col">
                 <c:choose>
+                    <c:when test="${!empty message}">
+                        <p>${message}</p>
+                    </c:when>
                     <c:when test="${!empty param.test && empty param.tema}">
                         <c:set var="currentTest" value="${cn.tests.findTest(param.test)}"/>
                         <c:choose>
@@ -47,15 +50,20 @@
                                 <c:forEach var="pregunta" items="${currentTest.preguntas}" varStatus="status">
                                     <label class="fw-bold" for="pregunta-${status.count}">${status.count}. ${pregunta.pregunta}</label>
 
-                                    <ul class="pregunta">
+                                    <ul class="pregunta" id="P${pregunta.id}">
                                         <c:forEach var="respuesta" items="${pregunta.respuestas}">
                                             <li class="rounded respuesta" vl="${respuesta.correcta ? '1' : '0'}" pr="${pregunta.id}">${respuesta.respuesta}</li>
                                         </c:forEach>
                                     </ul>
                                 </c:forEach>
+
                                 <p class="text-danger fst-italic">${labels.get('ALL_FIELDS_REQUIRED', pageContext.request)}</p>
                                 <p class="fw-bold">${labels.get('TEST_SCORE', pageContext.request)} <span id="score">0</span>/10</p>
-                                <button type="button" class="btn btn-danger" id="enviar" disabled>${labels.get('SEND_AND_SAVE', pageContext.request)}</button>
+                                <form class="fullpage-form rounded" action="${pageContext.request.contextPath}/app/checktest" method="post">
+                                    <input type="text" name="test" id="test" value="${param.test}" hidden>
+                                    <input type="text" name="resultado" id="resultado" value="" hidden>
+                                    <button type="submit" class="btn btn-danger" id="enviar" disabled>${labels.get('SEND_AND_SAVE', pageContext.request)}</button>
+                                </form>
                             </c:otherwise>
                         </c:choose>
                     </c:when>
@@ -88,8 +96,6 @@
 
     <script>
         $().ready(function () {
-            let score = $("#score");
-            let enviar = $("#enviar");
             let contestadas = [];
             let correctas = 0;
 
@@ -101,14 +107,20 @@
                         correctas++;
                     } else {
                         respuesta.addClass('incorrecta');
+                        $('#P' + respuesta.attr('pr')).children('li').each(function () {
+                            if($(this).attr('vl') === '1') {
+                                $(this).addClass('correcta');
+                            }
+                        });
                     }
                     contestadas.push(respuesta.attr('pr'));
                 }
 
-                score.text(correctas + '');
+                $("#score").text(correctas + '');
 
                 if(contestadas.length >= 10) {
-                    enviar.removeAttr("disabled");
+                    $("#enviar").removeAttr("disabled");
+                    $("#resultado").val('' + correctas);
                 }
             });
         });

@@ -200,7 +200,7 @@
     <!--/app/checktest-->
     <servlet>
         <servlet-name>ResultadoTestBack</servlet-name>
-        <servlet-class>es.fernandopal.autoescuela.servlet.user.tests.CheckTest</servlet-class>
+        <servlet-class>es.fernandopal.autoescuela.servlet.tests.CheckTest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ResultadoTestBack</servlet-name>
@@ -208,16 +208,16 @@
     </servlet-mapping>
     <!--END /app/checktest-->
 
-    <!--/resultado-->
+    <!--/test-history-->
     <servlet>
-        <servlet-name>ResultadoTestFront</servlet-name>
-        <jsp-file>/pages/user/tests/resultado.jsp</jsp-file>
+        <servlet-name>HistoryTestFront</servlet-name>
+        <jsp-file>/pages/user/tests/history.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ResultadoTestFront</servlet-name>
-        <url-pattern>/resultado</url-pattern>
+        <servlet-name>HistoryTestFront</servlet-name>
+        <url-pattern>/test-history</url-pattern>
     </servlet-mapping>
-    <!--END /resultado-->
+    <!--END /test-history-->
 <!--  END TESTS  -->
 
 
@@ -368,14 +368,14 @@
     <!--END /app/a/add/oferta-->
 
     <!--/app/a/edit/oferta-->
-    <servlet>
-        <servlet-name>AdminOfertaEditBack</servlet-name>
-        <servlet-class>es.fernandopal.autoescuela.servlet.admin.oferta.EditOferta</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminOfertaEditBack</servlet-name>
-        <url-pattern>/app/a/edit/oferta</url-pattern>
-    </servlet-mapping>
+<!--    <servlet>-->
+<!--        <servlet-name>AdminOfertaEditBack</servlet-name>-->
+<!--        <servlet-class>es.fernandopal.autoescuela.servlet.admin.oferta.EditOferta</servlet-class>-->
+<!--    </servlet>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>AdminOfertaEditBack</servlet-name>-->
+<!--        <url-pattern>/app/a/edit/oferta</url-pattern>-->
+<!--    </servlet-mapping>-->
     <!--END /app/a/edit/oferta-->
 <!--  END OFERTAS  -->
 

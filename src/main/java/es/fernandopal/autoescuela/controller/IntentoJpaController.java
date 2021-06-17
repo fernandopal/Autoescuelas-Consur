@@ -31,7 +31,7 @@ public class IntentoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Intento intento) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(Intento intento) throws Exception {
         EntityManager em = null;
         EntityTransaction etx = null;
 

@@ -1,5 +1,7 @@
 package es.fernandopal.autoescuela.model;
 
+import es.fernandopal.autoescuela.entities.EstadoCoche;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +20,8 @@ public class Intento implements Serializable {
     @OneToOne
     private Test test;
     private boolean aprobado;
+    private int aciertos;
+    private String fecha;
 
     public int getId() {
         return id;
@@ -45,5 +49,19 @@ public class Intento implements Serializable {
     }
     public void setAprobado(boolean aprobado) {
         this.aprobado = aprobado;
+    }
+
+    public int getAciertos() {
+        return aciertos;
+    }
+    public void setAciertos(int aciertos) {
+        this.aciertos = aciertos;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

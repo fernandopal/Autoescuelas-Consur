@@ -55,7 +55,8 @@
                                         <li><a class="dropdown-item disabled text-muted text-center" href="#">${labels.get('LAST_LOGIN', pageContext.request)} <%=new SimpleDateFormat("dd/MM/yyyy").format(new Date(session.getCreationTime()))%></a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/tests">${labels.get('ACCESS_TESTS', pageContext.request)}</a></li>
-<%--                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}../error/404.">${labels.get('STATS', pageContext.request)}</a></li>--%>
+                                            <%--                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}../error/404">${labels.get('STATS', pageContext.request)}</a></li>--%>
+                                        <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/test-history">${labels.get('TEST_HISTORY', pageContext.request)}</a></li>
                                         <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/admin">${labels.get('ADMIN_PANEL', pageContext.request)}</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item enable-icon" href="${pageContext.request.contextPath}/logout">${labels.get('LOG_OUT', pageContext.request)}</a></li>

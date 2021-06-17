@@ -63,7 +63,7 @@
                                     data: [
                                         ${cn.ofertas.getCountOf('coche')},
                                         ${cn.ofertas.getCountOf('moto')},
-                                        ${cn.ofertas.getCountOf('otros')},
+                                        ${cn.ofertas.getCountOf('otro')},
                                     ],
                                     borderColor: "rgb(206,212,218)",
                                     backgroundColor: [
